@@ -38,3 +38,6 @@ Database Default Configuration:
 - Data/ - DbContext and database configuration
 - Pages/ - UI (Login, Register, Catalog, Item Details, Cart)
 - Services/ - Password hashing service and image handling service
+
+<img width="683" height="548" alt="Screenshot 2025-12-26 171707" src="https://github.com/user-attachments/assets/881e994b-3a87-4a19-94a6-8d638705690a" />
+
