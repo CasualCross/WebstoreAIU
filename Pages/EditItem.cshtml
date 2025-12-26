@@ -1,0 +1,135 @@
+@page "/EditItem/{id:int}"
+@model WebstoreAIU.Pages.EditItemModel
+@using WebstoreAIU.Services
+@{
+    ViewData["Title"] = "Edit Item";
+}
+
+@if (Model.Item != null)
+{
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="bi bi-pencil-square text-primary" style="font-size: 3rem;"></i>
+                            <h2 class="mt-3 fw-bold">Edit Item</h2>
+                            <p class="text-muted">Update your product listing</p>
+                        </div>
+                        
+                        <form method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                            
+                            <div class="mb-3">
+                                <label asp-for="Input.Name" class="form-label fw-semibold">
+                                    <i class="bi bi-tag"></i> Item Name <span class="text-danger">*</span>
+                                </label>
+                                <input asp-for="Input.Name" class="form-control form-control-lg" />
+                                <span asp-validation-for="Input.Name" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label asp-for="Input.Price" class="form-label fw-semibold">
+                                    <i class="bi bi-currency-dollar"></i> Price <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input asp-for="Input.Price" type="number" step="0.01" class="form-control form-control-lg" />
+                                </div>
+                                <span asp-validation-for="Input.Price" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label asp-for="Input.Description" class="form-label fw-semibold">
+                                    <i class="bi bi-card-text"></i> Description <span class="text-danger">*</span>
+                                </label>
+                                <textarea asp-for="Input.Description" class="form-control" rows="5"></textarea>
+                                <span asp-validation-for="Input.Description" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">
+                                    <i class="bi bi-image"></i> Current Main Image
+                                </label>
+                                @if (Model.Item.MainImage != null && Model.Item.MainImage.Length > 0)
+                                {
+                                    <div class="mb-2">
+                                        <img src="@ImageHelper.GetImageSrc(Model.Item.MainImage)" 
+                                             alt="Current main image" 
+                                             class="img-fluid rounded" 
+                                             style="max-height: 200px;" />
+                                    </div>
+                                }
+                                <label asp-for="Input.MainImage" class="form-label fw-semibold">
+                                    Replace Main Image
+                                </label>
+                                <input asp-for="Input.MainImage" type="file" accept="image/*" class="form-control form-control-lg" />
+                                <small class="form-text text-muted">Leave empty to keep current image</small>
+                                <span asp-validation-for="Input.MainImage" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">
+                                    <i class="bi bi-images"></i> Current Additional Images
+                                </label>
+                                @{
+                                    var additionalImages = WebstoreAIU.Services.ImageService.ParseAdditionalImages(Model.Item.AdditionalImagesJson);
+                                }
+                                @if (additionalImages.Any())
+                                {
+                                    <div class="row g-2 mb-3">
+                                        @foreach (var img in additionalImages)
+                                        {
+                                            <div class="col-3">
+                                                <img src="data:@img.ContentType;base64,@img.Base64Data" 
+                                                     alt="Additional image" 
+                                                     class="img-fluid rounded" 
+                                                     style="height: 100px; object-fit: cover; width: 100%;" />
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                                <label asp-for="Input.AdditionalImages" class="form-label fw-semibold">
+                                    Replace Additional Images
+                                </label>
+                                <input asp-for="Input.AdditionalImages" type="file" accept="image/*" multiple class="form-control form-control-lg" />
+                                <small class="form-text text-muted">Leave empty to keep current images</small>
+                                <span asp-validation-for="Input.AdditionalImages" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="/Item/@Model.Item.Id" class="btn btn-outline-secondary btn-lg">
+                                    <i class="bi bi-x-circle"></i> Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-check-circle"></i> Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container text-center py-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body py-5">
+                <i class="bi bi-exclamation-triangle text-warning" style="font-size: 4rem;"></i>
+                <h1 class="mt-4">Item not found</h1>
+                <p class="text-muted mb-4">You don't have permission to edit this item or it doesn't exist.</p>
+                <a href="/Index" class="btn btn-primary btn-lg">
+                    <i class="bi bi-arrow-left"></i> Back to Catalog
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

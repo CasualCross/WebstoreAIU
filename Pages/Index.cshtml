@@ -1,0 +1,88 @@
+﻿@page
+@model WebstoreAIU.Pages.IndexModel
+@using WebstoreAIU.Services
+@{
+    ViewData["Title"] = "Catalog";
+}
+
+<div class="container-fluid px-4 py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary mb-3">Product Catalog</h1>
+        <p class="lead text-muted">Discover our amazing collection of products</p>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <div class="mt-4">
+                <a href="/AddItem" class="btn btn-primary btn-lg">
+                    <i class="bi bi-plus-circle"></i> Add New Item
+                </a>
+            </div>
+        }
+    </div>
+    
+    <div class="row g-4">
+        @foreach (var item in Model.Items)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card h-100 shadow-sm border-0 product-card" style="transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;" 
+                     onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.15)'"
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.1)'"
+                     onclick="location.href='/Item/@item.Id'">
+                    <div class="position-relative" style="height: 250px; overflow: hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        @if (item.MainImage != null && item.MainImage.Length > 0)
+                        {
+                            <img src="@ImageHelper.GetImageSrc(item.MainImage)" 
+                                 alt="@item.Name" 
+                                 class="card-img-top h-100 w-100" 
+                                 style="object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="d-flex align-items-center justify-content-center h-100 text-white">
+                                <div class="text-center">
+                                    <i class="bi bi-image" style="font-size: 3rem;"></i>
+                                    <p class="mt-2 mb-0">No Image</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold mb-3">@item.Name</h5>
+                        <p class="text-primary fw-bold fs-4 mb-auto">$@item.Price.ToString("F2")</p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 d-flex gap-2">
+                        <a href="/Item/@item.Id" class="btn btn-primary flex-fill">
+                            <i class="bi bi-eye"></i> View Details
+                        </a>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <form method="post" asp-page-handler="AddToCart" class="flex-fill">
+                                <input type="hidden" name="itemId" value="@item.Id" />
+                                <button type="submit" class="btn btn-success w-100" onclick="event.stopPropagation();">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .product-card {
+        border-radius: 12px;
+    }
+    
+    .product-card:hover {
+        border-color: #667eea;
+    }
+    
+    .card-img-top {
+        transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover .card-img-top {
+        transform: scale(1.05);
+    }
+</style>

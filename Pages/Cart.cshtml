@@ -1,0 +1,100 @@
+@page
+@model WebstoreAIU.Pages.CartModel
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div class="container-fluid px-4 py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-5 fw-bold">
+            <i class="bi bi-cart"></i> Shopping Cart
+        </h1>
+        <a href="/Index" class="btn btn-outline-primary">
+            <i class="bi bi-arrow-left"></i> Continue Shopping
+        </a>
+    </div>
+    
+    @if (Model.CartItems.Any())
+    {
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        @foreach (var cartItem in Model.CartItems)
+                        {
+                            <div class="d-flex align-items-center border-bottom pb-4 mb-4">
+                                <div class="flex-shrink-0 me-4">
+                                    @if (cartItem.Item.MainImage != null && cartItem.Item.MainImage.Length > 0)
+                                    {
+                                        <img src="@WebstoreAIU.Services.ImageHelper.GetImageSrc(cartItem.Item.MainImage)" 
+                                             alt="@cartItem.Item.Name" 
+                                             class="rounded" 
+                                             style="width: 100px; height: 100px; object-fit: cover;" />
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-light rounded d-flex align-items-center justify-content-center" 
+                                             style="width: 100px; height: 100px;">
+                                            <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h5 class="mb-1 fw-bold">@cartItem.Item.Name</h5>
+                                    <p class="text-muted mb-2">$@cartItem.Item.Price.ToString("F2") each</p>
+                                    <div class="d-flex align-items-center">
+                                        <span class="badge bg-secondary me-2">Quantity: @cartItem.Quantity</span>
+                                        <span class="text-primary fw-bold">$@((cartItem.Item.Price * cartItem.Quantity).ToString("F2"))</span>
+                                    </div>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <form method="post" asp-page-handler="Remove">
+                                        <input type="hidden" name="cartItemId" value="@cartItem.Id" />
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash"></i> Remove
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card shadow-sm border-0 sticky-top" style="top: 20px;">
+                    <div class="card-body">
+                        <h4 class="fw-bold mb-4">Order Summary</h4>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="text-muted">Subtotal:</span>
+                            <span class="fw-semibold">$@Model.Total.ToString("F2")</span>
+                        </div>
+                        <hr />
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="fw-bold fs-5">Total:</span>
+                            <span class="text-primary fw-bold fs-4">$@Model.Total.ToString("F2")</span>
+                        </div>
+                        <button class="btn btn-success btn-lg w-100 mb-3" disabled>
+                            <i class="bi bi-credit-card"></i> Checkout
+                        </button>
+                        <p class="text-muted small text-center mb-0">Checkout functionality coming soon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-cart-x text-muted" style="font-size: 5rem;"></i>
+                <h3 class="mt-4 mb-3">Your cart is empty</h3>
+                <p class="text-muted mb-4">Start adding items to your cart to see them here.</p>
+                <a href="/Index" class="btn btn-primary btn-lg">
+                    <i class="bi bi-shop"></i> Browse Products
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
