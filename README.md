@@ -47,3 +47,9 @@ Database Default Configuration:
 
 ## Images
 <img width="1885" height="1029" alt="Screenshot 2025-12-27 130552" src="https://github.com/user-attachments/assets/41014e68-a4d3-475e-81f0-5fce4b51676a" />
+<img width="1904" height="1000" alt="Screenshot 2025-12-27 130608" src="https://github.com/user-attachments/assets/9f691f85-2ba2-44ef-b244-32aa14379142" />
+<img width="1897" height="840" alt="Screenshot 2025-12-27 130621" src="https://github.com/user-attachments/assets/d877f741-1de7-4c98-a214-44b042ab8f9a" />
+<img width="1899" height="612" alt="Screenshot 2025-12-27 130646" src="https://github.com/user-attachments/assets/8c87eba0-89ac-4409-a0e6-0e78af1a2894" />
+<img width="1692" height="1027" alt="Screenshot 2025-12-27 130725" src="https://github.com/user-attachments/assets/60748832-b886-40ab-8b3f-de0ac8f1acc5" />
+<img width="1883" height="967" alt="Screenshot 2025-12-27 130734" src="https://github.com/user-attachments/assets/36e9ef9e-ff94-4c8e-8894-e6e7d5df59b0" />
+
