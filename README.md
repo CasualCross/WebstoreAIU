@@ -22,6 +22,7 @@ Simple weebstore application for learning purposes
    - Username: postgres
    - Password: password
 3. Open terminal and write command "cd WebstoreAIU $$ dotnet run"
+4. Open browser and go to "http://localhost:5024/"
 
 //The database will be created automatically when you first run the application
 //Program.cs will automatically create example items
