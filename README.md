@@ -42,3 +42,6 @@ Database Default Configuration:
 ## Database Diagram
 <img width="683" height="548" alt="Screenshot 2025-12-26 171707" src="https://github.com/user-attachments/assets/881e994b-3a87-4a19-94a6-8d638705690a" />
 
+## TODO
+- Implement mail registration and login
+- Implement bank card binding
