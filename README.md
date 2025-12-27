@@ -18,15 +18,12 @@ Simple weebstore application for learning purposes
 ## Setup Instructions
 
 1. Install PostgreSQL
-2. Create user:
+2. Create user in PostgreSQL:
    - Username: postgres
    - Password: password
-3. Open terminal and write command "cd WebstoreAIU $$ dotnet run"
-4. Open browser and go to "http://localhost:5024/"
-
-//The database will be created automatically when you first run the application
-
-//Program.cs will automatically create example items
+3. Create database "webstore"
+4. Open terminal and write command "cd WebstoreAIU $$ dotnet run"
+5. Open browser and go to "http://localhost:5024/"
 
 Database Default Configuration:
 - Database: webstore
