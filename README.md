@@ -25,6 +25,7 @@ Simple weebstore application for learning purposes
 4. Open browser and go to "http://localhost:5024/"
 
 //The database will be created automatically when you first run the application
+
 //Program.cs will automatically create example items
 
 Database Default Configuration:
