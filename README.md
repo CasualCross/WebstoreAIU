@@ -46,3 +46,4 @@ Database Default Configuration:
 - Implement bank card binding
 
 ## Images
+<img width="1885" height="1029" alt="Screenshot 2025-12-27 130552" src="https://github.com/user-attachments/assets/41014e68-a4d3-475e-81f0-5fce4b51676a" />
